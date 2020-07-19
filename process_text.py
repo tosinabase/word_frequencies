@@ -8,5 +8,7 @@ brackets_substrings = re.findall(r'\[.*?\]', text)
 for substring in brackets_substrings:
     text = text.replace(substring, '')
 
+text = text.lower()
+
 with open('data/witcher.txt', 'w') as f:
     f.write(text)
