@@ -1,6 +1,6 @@
 from nltk import word_tokenize, sent_tokenize
+from nltk.corpus import words
 import pandas as pd
-from string import punctuation
 
 with open('data/witcher.txt', 'r') as f:
     text = f.read()
@@ -18,11 +18,10 @@ for sentence in sentences:
             word_counts[token] += 1
 
 
+word_dictionary = words.words()
 counts_list = list(word_counts.items())
 df = pd.DataFrame(counts_list, columns=['word', 'count'])
-to_drop = df['word'].apply(lambda word: word in punctuation + '’...as')
-
-
-df = df[~to_drop]
+is_word = df['word'].apply(lambda word: word in word_dictionary)
+df = df[is_word]
 df.sort_values(by='count', ascending=False, inplace=True)
 df.to_csv('data/counts.csv', index=False)
